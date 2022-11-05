@@ -8,7 +8,7 @@ How to run the program
 
 2.Fill the flag options as shown in the diagram below:
 
-https://github.com/duncanodhis/omdbapi/blob/main/Screenshot%20from%202022-11-05%2014-55-25.png
+![Alt text](https://github.com/duncanodhis/omdbapi/blob/main/Screenshot%20from%202022-11-05%2014-55-25.png "Running using flags")
 
 
 What the program does:
