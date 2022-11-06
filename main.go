@@ -227,9 +227,12 @@ func filter(filepath string, title_Type string, original_Title string,
 	//var workers int = 10000
 	readerr := make(chan error)
 	// fmt.Println("Getting file")
-
+	
+	ch := make(chan struct{}, maxWorkers)
+	ch <- struct{}{}
 	go func() {
 		getLine(filepath, line, readerr)
+		<-ch
 	}()
 	fmt.Println("Processing file Complete")
 	for l := range line {
