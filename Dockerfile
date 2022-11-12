@@ -10,6 +10,10 @@ COPY go.sum ./
 RUN go mod download
 
 COPY *.go ./
+COPY Limiter/ ./Limiter/
+COPY omdbquery/  ./omdbquery/
+COPY readFile/ ./readFile/
+COPY util/ ./util/
 COPY az.csv ./
 
 RUN go build -o /docker-gs-ping
