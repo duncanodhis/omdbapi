@@ -3,7 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"omdbapi/omdbquery"
 	"omdbapi/readFile"
+	"omdbapi/util"
 	"time"
 )
 
@@ -12,10 +14,12 @@ import (
 func main() {
 
 	var filePath, titleType, primaryTitle,
-		originalTitle, genres_, startYear,
-		endYear, runtimeMinutes, plotFilter string
+		originalTitle, genres_,
+		startYear, endYear, runtimeMinutes string
 	var maxRequests int
 	var maxRunTime time.Duration
+	var plotFilter string
+	tconst := make([]string, 0, 0)
 
 	flag.StringVar(&filePath, "f", "./az.csv", "File path")
 	flag.StringVar(&titleType, "t", "short", "filter on TitleType column ")
@@ -29,10 +33,10 @@ func main() {
 	flag.DurationVar(&maxRunTime, "mT", 10, " maximum run time of the application")
 	flag.StringVar(&plotFilter, "pF", "Three men", "regex pattern  filter")
 	flag.Parse()
-	tconst := make([]string, 0, 0)
+
 	fmt.Println("Input values")
 	fmt.Println(filePath, titleType, primaryTitle, originalTitle, genres_, startYear, endYear, plotFilter)
-	tconst = readFile.filter(
+	tconst = readFile.Filter(
 		filePath,
 		titleType,
 		originalTitle,
@@ -48,10 +52,10 @@ func main() {
 	//output := make([]string, 0)
 
 	//fmt.Println(tconst)
-	for _, key := range removeDuplicateStr(tconst) {
+	for _, key := range util.RemoveDuplicateStr(tconst) {
 		//fmt.Println(key)
-		i := omdapiquery(key, plotFilter, 10)
-		gracefull(i, maxRunTime)
+		i := omdbquery.Omdapiquery(key, plotFilter, 10)
+		util.Gracefull(i, maxRunTime)
 	}
 
 }
