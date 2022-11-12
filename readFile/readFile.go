@@ -51,11 +51,14 @@ func getLine(filename string, line chan string, readerr chan error) {
 	readerr <- scanner.Err()
 }
 
-//filters the data according to flags given ,it reads the file using limited goroutine
-func Filter(filepath string, title_Type string, original_Title string,
-	primary_Title string, start_Year string,
-	end_Year string,
-	runtime_Minutes string, genres_ string) []string {
+// Filter filters the data according to flags given ,it reads the file using limited goroutine
+func Filter(filepath string, titleType string,
+	originalTitle string,
+	primaryTitle string,
+	startYear string,
+	endYear string,
+	runtimeMinutes string,
+	genres_ string) []string {
 
 	line := make(chan string)
 	rows := make([]string, 0, 0)
@@ -74,7 +77,7 @@ func Filter(filepath string, title_Type string, original_Title string,
 	for l := range line {
 		//fmt.Println(l)
 		rows = append(rows, l)
-		tconst = findTconst(rows, title_Type, primary_Title, original_Title, start_Year, end_Year, runtime_Minutes, genres_)
+		tconst = findTconst(rows, titleType, primaryTitle, originalTitle, startYear, endYear, runtimeMinutes, genres_)
 
 	}
 	if err := <-readerr; err != nil {
